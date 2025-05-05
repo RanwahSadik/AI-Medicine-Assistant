@@ -55,7 +55,13 @@ The Smart Medicine Assistant aims to:
 ### Image Input
 - Images are processed with EasyOCR to extract drug names.
 - Extracted names are queried in OpenFDA.
-
+  
+### Testing Framework
+- Component Testing: Individual validation of each feature module
+- Integration Testing: Ensuring seamless interaction between components
+- User Experience Testing: Optimizing for ease of use and clarity
+- Error Handling: Comprehensive error management for robustness
+  
 ---
 
 ## 🚀 Setup Instructions
