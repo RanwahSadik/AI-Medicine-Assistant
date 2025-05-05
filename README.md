@@ -156,7 +156,7 @@ Due to the large file size, the presentation video/slides are hosted externally.
 ---
 
 ## 📁 Repository Structure
-
+```plaintext
 AI-Medicine-Assistant/
 │
 ├── app.py                   # Main Streamlit application for UI and logic
