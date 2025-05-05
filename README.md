@@ -6,11 +6,11 @@ An intelligent, multi-functional healthcare platform designed to simplify medica
 ## 🎯 Project Goals
 The Smart Medicine Assistant aims to:
 
-- Simplify medication management for users, particularly seniors and those with chronic conditions
-- Provide reliable health information through an accessible, conversational interface
-- Reduce medication errors with image recognition and intelligent scheduling
-- Improve document comprehension by enabling natural language interaction with medical documents
-- Create an intuitive healthcare companion that integrates multiple tools in one unified interface
+- Simplify medication management for users, particularly seniors and those with chronic conditions.
+- Provide reliable health information through an accessible, conversational interface.
+- Reduce medication errors with image recognition.
+- Improve document comprehension by enabling natural language interaction with medical documents.
+- Create an intuitive healthcare companion that integrates multiple tools in one unified interface.
   
 ---
 
