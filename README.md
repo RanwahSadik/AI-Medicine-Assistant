@@ -26,7 +26,7 @@ The Smart Medicine Assistant aims to:
 
 ## 🏗️ System Architecture
 
-![System Architecture]()
+![System Architecture](assets/System_Architecture.png)
 
 **Components:**
 - **Streamlit UI**: Web interface for user interaction.
@@ -156,3 +156,15 @@ Due to the large file size, the presentation video/slides are hosted externally.
 ---
 
 ## 📁 Repository Structure
+
+AI-Medicine-Assistant/
+│
+├── app.py                   # Main Streamlit application for UI and logic
+├── Medical_chatbot.ipynb    # Notebook for prototyping and testing
+├── Experiments.ipynb        # Complete experimentation notebook
+├── requirements.txt         # Python package dependencies
+├── .env                     # Environment variables (e.g., OpenAI API key)
+├── .gitignore               # Files and folders to ignore in Git
+├── README.md                # Project overview and documentation
+└── assets/
+    └── system_architecture.png  # Visual diagram of system architecture
