@@ -171,6 +171,7 @@ AI-Medicine-Assistant/
 ├── Experiments.ipynb        # Complete experimentation notebook
 ├── requirements.txt         # Python package dependencies
 ├── Presentation_MedicineAssistant.pdf  # Presentation of the project
+├── Experiments.ipynb        # Experiments of the project
 ├── .env                     # Environment variables (e.g., OpenAI API key)
 ├── .gitignore               # Files and folders to ignore in Git
 ├── README.md                # Project overview and documentation
