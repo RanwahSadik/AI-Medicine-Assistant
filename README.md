@@ -159,7 +159,22 @@ To gain deeper insights and debug model behavior, we integrated **[LangSmith](ht
 - **Deep tracing** helped identify and resolve confusion where the model wasn't sure whether to answer from **PDF content** or **OpenFDA data**.
 
 > 📈 **Outcome**: This tracing strategy significantly enhanced the **reliability**, **interpretability**, and **debugging efficiency** of the assistant.
-> 
+
+---
+
+## 🚀 Deployment
+
+The AI Medicine Assistant was deployed using **[Streamlit](https://streamlit.io/)** for a fast, interactive, and user-friendly experience.
+
+- 📍 The application supports image upload, PDF parsing, voice chat, and text queries.
+- 🧪 Backend logic integrates OpenFDA APIs, LangChain tools, and real-time LLM-based inference.
+
+### 🎥 Deployment Demo (Video)
+
+Due to large file size, the deployment demo video is hosted on Google Drive:
+
+📺 [Watch Streamlit Deployment Demo](https://drive.google.com/file/d/1z0iqmLmb9gl_wLSdm4KecPA9oiZ9X0E9/view?usp=sharing)
+
 ---
 
 ## 📁 Repository Structure
