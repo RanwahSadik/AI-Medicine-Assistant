@@ -144,15 +144,22 @@ Precision: 1.0
 Recall: 1.0
 ```
 
----
+## 🔍 Tracing with LangSmith
 
-## 🎥 Project Presentation
+To gain deeper insights and debug model behavior, we integrated **[LangSmith](https://smith.langchain.com/)** for tracing and evaluation. This enabled:
 
-Due to the large file size, the presentation video/slides are hosted externally.
+- ✅ Step-by-step tracking of query flows  
+- 🔍 Visibility into LLM responses, retrieval actions, and cost  
+- 🧠 Filtering and monitoring specific query types (e.g., `medicine`, `PDF`, `greeting`)  
+- ⚙️ Performance review across different agents such as `AgentExecutor` and `RetrievalQA`
 
-📎 **Access the full project presentation here:**  
-👉 [View on Google Drive]()
+### 📌 Sample Observations
 
+- Queries like **"What is the side effect of Advil?"** were accurately categorized and answered with **high cosine similarity**.
+- **Deep tracing** helped identify and resolve confusion where the model wasn't sure whether to answer from **PDF content** or **OpenFDA data**.
+
+> 📈 **Outcome**: This tracing strategy significantly enhanced the **reliability**, **interpretability**, and **debugging efficiency** of the assistant.
+> 
 ---
 
 ## 📁 Repository Structure
@@ -163,6 +170,7 @@ AI-Medicine-Assistant/
 ├── Medical_chatbot.ipynb    # Notebook for prototyping and testing
 ├── Experiments.ipynb        # Complete experimentation notebook
 ├── requirements.txt         # Python package dependencies
+├── Presentation_MedicineAssistant.pdf  # Presentation of the project
 ├── .env                     # Environment variables (e.g., OpenAI API key)
 ├── .gitignore               # Files and folders to ignore in Git
 ├── README.md                # Project overview and documentation
