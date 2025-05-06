@@ -705,68 +705,39 @@ session.mount('https://', HTTPAdapter(max_retries=retries))
 
 def search_openfda(query: str) -> str:
     """
-    Searches the OpenFDA API for drug information with improved accuracy.
-    Tries multiple search fields and validates results before returning.
+    Searches the OpenFDA API for drug information and returns a summarized, safe-length result.
     """
+
+    import requests
+
     try:
-        # Clean and normalize the query
-        clean_query = query.strip().lower()
-        
-        # Try searching by both generic name and brand name for better matching
-        search_attempts = [
-            # First try exact match with generic name
-            f"https://api.fda.gov/drug/label.json?search=openfda.generic_name.exact:\"{clean_query}\"&limit=3",
-            # Then try partial match with generic name
-            f"https://api.fda.gov/drug/label.json?search=openfda.generic_name:\"{clean_query}\"&limit=3",
-            # Try exact match with brand name
-            f"https://api.fda.gov/drug/label.json?search=openfda.brand_name.exact:\"{clean_query}\"&limit=3",
-            # Try partial match with brand name
-            f"https://api.fda.gov/drug/label.json?search=openfda.brand_name:\"{clean_query}\"&limit=3",
-            # Try broader search
-            f"https://api.fda.gov/drug/label.json?search=drug_interactions:\"{clean_query}\" OR indications_and_usage:\"{clean_query}\"&limit=3"
-        ]
-        
-        for url in search_attempts:
-            try:
-                response = session.get(url, timeout=5)
-                data = response.json()
-                
-                if "results" in data and data["results"]:
-                    # Verify we have the right drug by comparing name similarity
-                    for result in data["results"]:
-                        openfda = result.get("openfda", {})
-                        generic_names = [name.lower() for name in openfda.get("generic_name", [])]
-                        brand_names = [name.lower() for name in openfda.get("brand_name", [])]
-                        
-                        # Check for exact matches or if query is contained in any name
-                        exact_match = clean_query in generic_names or clean_query in brand_names
-                        partial_match = any(clean_query in name for name in generic_names + brand_names)
-                        
-                        if exact_match or partial_match:
-                            # We found a good match, extract information
-                            sections = {
-                                "Generic Name": ", ".join(openfda.get("generic_name", [])),
-                                "Brand Name": ", ".join(openfda.get("brand_name", [])),
-                                "Manufacturer": ", ".join(openfda.get("manufacturer_name", [])),
-                                "Purpose": result.get("purpose", ["N/A"])[0] if result.get("purpose") else "N/A",
-                                "Indications and Usage": result.get("indications_and_usage", ["N/A"])[0][:500] if result.get("indications_and_usage") else "N/A",
-                                "Warnings": result.get("warnings", ["N/A"])[0][:500] if result.get("warnings") else "N/A",
-                                "Dosage and Administration": result.get("dosage_and_administration", ["N/A"])[0][:500] if result.get("dosage_and_administration") else "N/A"
-                            }
-                            
-                            # Format response
-                            summary = "\n".join([f"**{key}:** {value}" for key, value in sections.items() if value and value != "N/A"])
-                            return summary
-            
-            except requests.exceptions.RequestException:
-                continue  # Try next search strategy on error
-        
-        # If we get here, we've tried all search strategies with no good match
-        return f"I couldn't find reliable FDA information for '{query}'. Please check the spelling or try a different medicine name."
+        # Make API request to OpenFDA
+        url = f"https://api.fda.gov/drug/label.json?search=openfda.generic_name:{query}&limit=1"
+        response = requests.get(url)
+        data = response.json()
+
+        if "results" not in data or not data["results"]:
+            return f"No FDA data found for '{query}'."
+
+        result = data["results"][0]
+
+        # Extract only relevant fields
+        sections = {
+            "Brand Name": ", ".join(result.get("openfda", {}).get("brand_name", [])),
+            "Manufacturer": ", ".join(result.get("openfda", {}).get("manufacturer_name", [])),
+            "Purpose": result.get("purpose", ["N/A"])[0],
+            "Indications and Usage": result.get("indications_and_usage", ["N/A"])[0][:500],  # limit section size
+            "Warnings": result.get("warnings", ["N/A"])[0][:500],
+            "Dosage and Administration": result.get("dosage_and_administration", ["N/A"])[0][:500]
+        }
+
+        # Format response
+        summary = "\n".join([f"**{key}:** {value}" for key, value in sections.items() if value])
+        return summary
 
     except Exception as e:
         return f"An error occurred while accessing OpenFDA: {str(e)}"
-
+    
 # EasyOCR for image text extraction
 @st.cache_resource
 def load_ocr_reader():
